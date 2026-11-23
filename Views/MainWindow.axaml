@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="HubLink.Views.MainWindow"
+        Title="HubLink - Shipment Viewer"
+        Width="900" Height="650" MinWidth="720" MinHeight="480">
+
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" Margin="16">
+
+    <!-- Title -->
+    <StackPanel Grid.Row="0" Margin="0,0,0,10">
+      <TextBlock Text="HubLink" FontSize="26" FontWeight="Bold" />
+      <TextBlock Text="{Binding ServiceInfo}" Foreground="Gray" />
+    </StackPanel>
+
+    <!-- Filter and buttons -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+      <TextBlock Text="Status filter:" VerticalAlignment="Center" />
+      <ComboBox ItemsSource="{Binding StatusOptions}"
+                SelectedItem="{Binding SelectedStatus}"
+                Width="150" />
+      <Button Content="Refresh" Command="{Binding RefreshCommand}" />
+      <Button Content="Retry" Command="{Binding RefreshCommand}" IsVisible="{Binding HasError}" />
+      <Button Content="Export CSV" Command="{Binding ExportCommand}" />
+    </StackPanel>
+
+    <!-- Loading indicator -->
+    <StackPanel Grid.Row="2" IsVisible="{Binding IsLoading}" Margin="0,0,0,10">
+      <ProgressBar IsIndeterminate="True" />
+      <TextBlock Text="Retrieving shipments from the service..." />
+    </StackPanel>
+
+    <!-- Error and old-data banners -->
+    <StackPanel Grid.Row="3" Spacing="6" Margin="0,0,0,10">
+      <Border Background="#FDECEA" BorderBrush="#D32F2F" BorderThickness="1"
+              CornerRadius="4" Padding="8" IsVisible="{Binding HasError}">
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="#B71C1C" TextWrapping="Wrap" />
+      </Border>
+      <Border Background="#FFF4E0" BorderBrush="#F57C00" BorderThickness="1"
+              CornerRadius="4" Padding="8" IsVisible="{Binding IsShowingOldData}">
+        <TextBlock Text="{Binding OldDataMessage}" Foreground="#8A4B00" TextWrapping="Wrap" />
+      </Border>
+    </StackPanel>
+
+    <!-- Summary -->
+    <Border Grid.Row="4" BorderBrush="LightGray" BorderThickness="1" CornerRadius="4"
+            Padding="10" Margin="0,0,0,10" IsVisible="{Binding HasSummary}">
+      <StackPanel Spacing="4">
+        <TextBlock Text="{Binding SummaryTitle}" FontWeight="SemiBold" />
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <TextBlock Text="{Binding TotalCount, StringFormat='Total: {0}'}" />
+          <TextBlock Text="{Binding PendingCount, StringFormat='Pending: {0}'}" />
+          <TextBlock Text="{Binding InTransitCount, StringFormat='InTransit: {0}'}" />
+          <TextBlock Text="{Binding DeliveredCount, StringFormat='Delivered: {0}'}" />
+          <TextBlock Text="{Binding ExceptionCount, StringFormat='Exception: {0}'}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- Shipment table -->
+    <Grid Grid.Row="5">
+      <DataGrid ItemsSource="{Binding Shipments}"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="LightGray">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Tracking Number" Binding="{Binding TrackingNumber}" Width="130" />
+          <DataGridTextColumn Header="Origin" Binding="{Binding Origin}" Width="*" />
+          <DataGridTextColumn Header="Destination" Binding="{Binding Destination}" Width="*" />
+          <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
+          <DataGridTextColumn Header="Last Updated" Binding="{Binding LastUpdatedDisplay}" Width="190" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <TextBlock Text="{Binding EmptyMessage}" IsVisible="{Binding HasEmptyMessage}"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                 TextWrapping="Wrap" Foreground="Gray" />
+    </Grid>
+
+    <!-- Status bar -->
+    <StackPanel Grid.Row="6" Margin="0,10,0,0" Spacing="2">
+      <TextBlock Text="{Binding StatusMessage}" />
+      <TextBlock Text="{Binding ExportMessage}" Foreground="DarkGreen" TextWrapping="Wrap"
+                 IsVisible="{Binding !ExportFailed}" />
+      <TextBlock Text="{Binding ExportMessage}" Foreground="#B71C1C" TextWrapping="Wrap"
+                 IsVisible="{Binding ExportFailed}" />
+    </StackPanel>
+
+  </Grid>
+</Window>
