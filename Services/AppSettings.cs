@@ -13,6 +13,7 @@ public class AppSettings
     public string RequestPath { get; set; } = "/api/shipments";
     public string ExtraQuery { get; set; } = "";   // e.g. mode=delay (test endpoint only)
     public int TimeoutSeconds { get; set; } = 8;
+    public string? LoadError { get; set; }
 
     public static AppSettings Load()
     {
@@ -34,7 +35,10 @@ public class AppSettings
         {
             // If the file is unreadable, fall back to the default values.
         }
-        return new AppSettings();
+        return new AppSettings
+        {
+            LoadError = "Could not load appsettings.json. Check that it exists and is valid JSON, then restart the app."
+        };
     }
 
     /// <summary>Builds the complete request URL from the settings.</summary>

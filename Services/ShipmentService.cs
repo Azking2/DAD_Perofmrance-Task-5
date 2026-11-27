@@ -28,6 +28,9 @@ public class ShipmentService : IShipmentService
 
     public async Task<List<Shipment>> GetShipmentsAsync()
     {
+        if (_settings.LoadError != null)
+            throw new ShipmentServiceException(_settings.LoadError);
+
         // 1. Build the request address
         Uri uri;
         try

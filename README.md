@@ -4,7 +4,7 @@ HubLink is an Avalonia (C# / .NET 8) desktop app that connects to the HubLink sh
 It retrieves shipments for one branch, shows them in a table, filters by status, shows a summary,
 and exports the displayed shipments to a CSV file.
 
-**Team members:** _(Name 1)_ and _(Name 2)_   **Section:** _(section)_
+**Team members:** James A. Dales and John Paul A. Canarejo   **Section:** BSIT-3C
 
 ## Requirements
 - .NET 8 SDK
@@ -61,4 +61,4 @@ Change these settings, restart the app, then **set them back** to the normal val
 
 ## Notes
 - The app only reads data (GET). It does not create, edit or delete shipments.
-- AI assistance: _(describe briefly, e.g. "Claude was used to help draft the initial project code and documentation; we reviewed, tested and can explain all parts.")_
+- AI assistance: [AI tool John Paul used, if any] was used for [what it helped with]. Claude was also used to review the code, test the app logic against a stand-in server, suggest fixes for settings-file error handling and the column width, guide our manual testing, and draft the verification checklist.

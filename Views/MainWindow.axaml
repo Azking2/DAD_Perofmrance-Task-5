@@ -64,7 +64,7 @@
                 GridLinesVisibility="All"
                 BorderThickness="1" BorderBrush="LightGray">
         <DataGrid.Columns>
-          <DataGridTextColumn Header="Tracking Number" Binding="{Binding TrackingNumber}" Width="130" />
+          <DataGridTextColumn Header="Tracking Number" Binding="{Binding TrackingNumber}" Width="160" />
           <DataGridTextColumn Header="Origin" Binding="{Binding Origin}" Width="*" />
           <DataGridTextColumn Header="Destination" Binding="{Binding Destination}" Width="*" />
           <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />

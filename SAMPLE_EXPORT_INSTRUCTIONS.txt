@@ -1,5 +1,0 @@
-The handout requires ONE CSV sample produced by YOUR running app.
-1. Start the HubLink service and run the app (BR-001).
-2. Leave the filter on All (or pick one) and click "Export CSV".
-3. Save it as sample_export.csv in this folder.
-4. Delete this instruction file before submitting.
